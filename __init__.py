@@ -29,6 +29,9 @@ This plugin is based from 'LatLon Grid'
  This script initializes the plugin, making it known to QGIS.
 """
 
+import os
+import site
+site.addsitedir(os.path.abspath(os.path.dirname(__file__) + '/ext-libs'))
 
 def name():
     return "MgrsGrid"
