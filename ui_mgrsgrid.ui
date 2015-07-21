@@ -45,7 +45,7 @@
         </sizepolicy>
        </property>
        <property name="toolTip">
-        <string>Select layer to use for extend of lat/lon grid</string>
+        <string>Select layer to use for extend of MGRS grid</string>
        </property>
       </widget>
      </item>

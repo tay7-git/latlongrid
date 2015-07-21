@@ -153,7 +153,7 @@ class Ui_MgrsGrid(object):
     def retranslateUi(self, MgrsGrid):
         MgrsGrid.setWindowTitle(QtGui.QApplication.translate("MgrsGrid", "Latitude / Longitude grid lines", None, QtGui.QApplication.UnicodeUTF8))
         self.label.setText(QtGui.QApplication.translate("MgrsGrid", "Select existing layer:", None, QtGui.QApplication.UnicodeUTF8))
-        self.selected_layer.setToolTip(QtGui.QApplication.translate("MgrsGrid", "Select layer to use for extend of lat/lon grid", None, QtGui.QApplication.UnicodeUTF8))
+        self.selected_layer.setToolTip(QtGui.QApplication.translate("MgrsGrid", "Select layer to use for extend of MGRS grid", None, QtGui.QApplication.UnicodeUTF8))
         self.label_2.setText(QtGui.QApplication.translate("MgrsGrid", "Grid labels format:", None, QtGui.QApplication.UnicodeUTF8))
         self.labels_format.setToolTip(QtGui.QApplication.translate("MgrsGrid", "<html><head/><body><p>Select label format. Grid interval specified below is based on this selection</p></body></html>", None, QtGui.QApplication.UnicodeUTF8))
         self.labels_format.setItemText(0, QtGui.QApplication.translate("MgrsGrid", "Decimal degrees", None, QtGui.QApplication.UnicodeUTF8))

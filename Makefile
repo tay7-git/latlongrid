@@ -1,13 +1,13 @@
 #/***************************************************************************
 # MgrsGrid
-# 
-# Create Lat/lon grid based on layer extend
+#
+# Create MGRS grid based on layer extend
 #                             -------------------
 #        begin                : 2013-09-27
 #        copyright            : (C) 2013 by Mikhail Tchernychev
 #        email                : mikhail_tchernychev@yahoo.com
 # ***************************************************************************/
-# 
+#
 #/***************************************************************************
 # *                                                                         *
 # *   This program is free software; you can redistribute it and/or modify  *
@@ -20,12 +20,12 @@
 # CONFIGURATION
 PLUGIN_UPLOAD = $(CURDIR)/plugin_upload.py
 
-# Makefile for a PyQGIS plugin 
+# Makefile for a PyQGIS plugin
 
 # translation
 SOURCES = mgrsgrid.py ui_mgrsgrid.py __init__.py mgrsgriddialog.py
 #TRANSLATIONS = i18n/mgrsgrid_en.ts
-TRANSLATIONS = 
+TRANSLATIONS =
 
 # global
 
@@ -78,12 +78,12 @@ derase:
 
 # The zip target deploys the plugin and creates a zip file with the deployed
 # content. You can then upload the zip file on http://plugins.qgis.org
-zip: deploy dclean 
+zip: deploy dclean
 	rm -f $(PLUGINNAME).zip
 	cd $(HOME)/.qgis/python/plugins; zip -9r $(CURDIR)/$(PLUGINNAME).zip $(PLUGINNAME)
 
-# Create a zip package of the plugin named $(PLUGINNAME).zip. 
-# This requires use of git (your plugin development directory must be a 
+# Create a zip package of the plugin named $(PLUGINNAME).zip.
+# This requires use of git (your plugin development directory must be a
 # git repository).
 # To use, pass a valid commit or tag as follows:
 #   make package VERSION=Version_0.3.2
@@ -113,5 +113,5 @@ clean:
 	rm $(UI_FILES) $(RESOURCE_FILES)
 
 # build documentation with sphinx
-doc: 
+doc:
 	cd help; make html

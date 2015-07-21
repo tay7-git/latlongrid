@@ -3,7 +3,7 @@
 /***************************************************************************
  MgrsGrid
                                  A QGIS plugin
- Create Lat/lon grid based on layer extend
+ Create MGRS grid based on layer extend
                               -------------------
         begin                : 2013-09-27
         copyright            : (C) 2013 by Mikhail Tchernychev
@@ -63,28 +63,28 @@ class MgrsGrid:
         # Create action that will start plugin configuration
         self.action = QAction(
             QIcon(":/plugins/mgrsgrid/icon.png"),
-            u"Lat/Lon grid lines", self.iface.mainWindow())
+            u"MGRS grid lines", self.iface.mainWindow())
         # connect the action to the run method
         self.action.triggered.connect(self.run)
 
         # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
         self.iface.addPluginToMenu(u"&MgrsGrid", self.action)
-        
+
         self.help_action = QAction(
             QIcon(":/plugins/mgrsgrid/help.png"),
-            u"Help on Lat/Lon grid", self.iface.mainWindow())
+            u"Help on MGRS grid", self.iface.mainWindow())
         # connect the action to the run method
         self.help_action.triggered.connect(self.help)
         self.iface.addPluginToMenu(u"&MgrsGrid", self.help_action)
-        
+
         core.QgsPluginLayerRegistry.instance().addPluginLayerType(MgrsGridType())
 
     def unload(self):
         # Remove the plugin menu item and icon
         self.iface.removePluginMenu(u"&MgrsGrid", self.action)
         self.iface.removePluginMenu(u"&MgrsGrid", self.help_action)
-        
+
         self.iface.removeToolBarIcon(self.action)
         core.QgsPluginLayerRegistry.instance().removePluginLayerType(MgrsGridLayer.LAYER_TYPE)
 
@@ -93,10 +93,10 @@ class MgrsGrid:
         # show the dialog
         layer = MgrsGridLayer()
         layer.showDialog()
-        
+
         # Run the dialog event loop
         if layer.isValid():
             core.QgsMapLayerRegistry.instance().addMapLayer(layer)
-            
+
     def help(self):
         webbrowser.open(currentPath + "/help/lat_lon_plugin.html")

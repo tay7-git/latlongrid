@@ -3,7 +3,7 @@
 /***************************************************************************
  MgrsGridDialog
                                  A QGIS plugin
- Create Lat/lon grid based on layer extend
+ Create MGRS grid based on layer extend
                              -------------------
         begin                : 2013-09-27
         copyright            : (C) 2013 by Mikhail Tchernychev
