@@ -99,4 +99,4 @@ class MgrsGrid:
             core.QgsMapLayerRegistry.instance().addMapLayer(layer)
 
     def help(self):
-        webbrowser.open(currentPath + "/help/lat_lon_plugin.html")
+        webbrowser.open(currentPath + "/help/mgrs_plugin.html")
