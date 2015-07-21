@@ -23,7 +23,7 @@ PLUGIN_UPLOAD = $(CURDIR)/plugin_upload.py
 # Makefile for a PyQGIS plugin
 
 # translation
-SOURCES = mgrsgrid.py ui_mgrsgrid.py __init__.py mgrsgriddialog.py
+SOURCES = mgrsgrid.py ui_mgrsgrid.py __init__.py mgrsgriddialog.py mgrsgridlayer.py mgrsgridtype.py
 #TRANSLATIONS = i18n/mgrsgrid_en.ts
 TRANSLATIONS =
 
@@ -31,7 +31,7 @@ TRANSLATIONS =
 
 PLUGINNAME = mgrsgrid
 
-PY_FILES = mgrsgrid.py mgrsgriddialog.py __init__.py
+PY_FILES = mgrsgrid.py mgrsgriddialog.py mgrsgridlayer.py mgrsgridtype.py __init__.py
 
 EXTRAS = icon.png metadata.txt
 
@@ -40,6 +40,10 @@ UI_FILES = ui_mgrsgrid.py
 RESOURCE_FILES = resources_rc.py
 
 HELP = help/build/html
+
+EXTLIBS = ext-libs
+
+DEPLOY = $(HOME)/.qgis2/python/plugins/$(PLUGINNAME)
 
 default: compile
 
@@ -58,13 +62,15 @@ compile: $(UI_FILES) $(RESOURCE_FILES)
 # the Python plugin directory is located at:
 # $HOME/.qgis/python/plugins
 deploy: compile doc transcompile
-	mkdir -p $(HOME)/.qgis/python/plugins/$(PLUGINNAME)
-	cp -vf $(PY_FILES) $(HOME)/.qgis/python/plugins/$(PLUGINNAME)
-	cp -vf $(UI_FILES) $(HOME)/.qgis/python/plugins/$(PLUGINNAME)
-	cp -vf $(RESOURCE_FILES) $(HOME)/.qgis/python/plugins/$(PLUGINNAME)
-	cp -vf $(EXTRAS) $(HOME)/.qgis/python/plugins/$(PLUGINNAME)
-	cp -vfr i18n $(HOME)/.qgis/python/plugins/$(PLUGINNAME)
-	cp -vfr $(HELP) $(HOME)/.qgis/python/plugins/$(PLUGINNAME)/help
+	mkdir -p $(DEPLOY)
+	cp -vf $(PY_FILES) $(DEPLOY)
+	cp -vf $(UI_FILES) $(DEPLOY)
+	cp -vf $(RESOURCE_FILES) $(DEPLOY)
+	cp -vf $(EXTRAS) $(DEPLOY)
+	cp -vfr i18n $(DEPLOY)
+	cp -vfr $(HELP) $(DEPLOY)/help
+	mkdir -p $(DEPLOY)/$(EXTLIBS)
+	cp -vfr $(EXTLIBS)/ $(DEPLOY)/$(EXTLIBS)/
 
 # The dclean target removes compiled python files from plugin directory
 # also delets any .svn entry
