@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LatLonGrid
+ MgrsGrid
                                  A QGIS plugin
  Create Lat/lon grid based on layer extend
                               -------------------
@@ -29,9 +29,9 @@ from qgis import core
 import resources_rc
 
 # Import the code for the dialog
-from latlongriddialog import LatLonGridDialog
-from latlongridtype   import LatLonGridType
-from latlongridlayer  import LatLonGridLayer
+from mgrsgriddialog import MgrsGridDialog
+from mgrsgridtype   import MgrsGridType
+from mgrsgridlayer  import MgrsGridLayer
 
 import os.path
 
@@ -40,7 +40,7 @@ import webbrowser, os
 # Set up current path.
 currentPath = os.path.dirname( __file__ )
 
-class LatLonGrid:
+class MgrsGrid:
 
     def __init__(self, iface):
         # Save reference to the QGIS interface
@@ -49,7 +49,7 @@ class LatLonGrid:
         self.plugin_dir = os.path.dirname(__file__)
         # initialize locale
         locale = QSettings().value("locale/userLocale")[0:2]
-        localePath = os.path.join(self.plugin_dir, 'i18n', 'latlongrid_{}.qm'.format(locale))
+        localePath = os.path.join(self.plugin_dir, 'i18n', 'mgrsgrid_{}.qm'.format(locale))
 
         if os.path.exists(localePath):
             self.translator = QTranslator()
@@ -62,36 +62,36 @@ class LatLonGrid:
     def initGui(self):
         # Create action that will start plugin configuration
         self.action = QAction(
-            QIcon(":/plugins/latlongrid/icon.png"),
+            QIcon(":/plugins/mgrsgrid/icon.png"),
             u"Lat/Lon grid lines", self.iface.mainWindow())
         # connect the action to the run method
         self.action.triggered.connect(self.run)
 
         # Add toolbar button and menu item
         self.iface.addToolBarIcon(self.action)
-        self.iface.addPluginToMenu(u"&LatLonGrid", self.action)
+        self.iface.addPluginToMenu(u"&MgrsGrid", self.action)
         
         self.help_action = QAction(
-            QIcon(":/plugins/latlongrid/help.png"),
+            QIcon(":/plugins/mgrsgrid/help.png"),
             u"Help on Lat/Lon grid", self.iface.mainWindow())
         # connect the action to the run method
         self.help_action.triggered.connect(self.help)
-        self.iface.addPluginToMenu(u"&LatLonGrid", self.help_action)
+        self.iface.addPluginToMenu(u"&MgrsGrid", self.help_action)
         
-        core.QgsPluginLayerRegistry.instance().addPluginLayerType(LatLonGridType())
+        core.QgsPluginLayerRegistry.instance().addPluginLayerType(MgrsGridType())
 
     def unload(self):
         # Remove the plugin menu item and icon
-        self.iface.removePluginMenu(u"&LatLonGrid", self.action)
-        self.iface.removePluginMenu(u"&LatLonGrid", self.help_action)
+        self.iface.removePluginMenu(u"&MgrsGrid", self.action)
+        self.iface.removePluginMenu(u"&MgrsGrid", self.help_action)
         
         self.iface.removeToolBarIcon(self.action)
-        core.QgsPluginLayerRegistry.instance().removePluginLayerType(LatLonGridLayer.LAYER_TYPE)
+        core.QgsPluginLayerRegistry.instance().removePluginLayerType(MgrsGridLayer.LAYER_TYPE)
 
     # run method that performs all the real work
     def run(self):
         # show the dialog
-        layer = LatLonGridLayer()
+        layer = MgrsGridLayer()
         layer.showDialog()
         
         # Run the dialog event loop

@@ -1,6 +1,6 @@
 """
 ***************************************************************************
- LatLonGridLayer - manages and draws an overlay grid.
+ MgrsGridLayer - manages and draws an overlay grid.
                                  A QGIS plugin
  Overlays a user-definable grid on the map.
                              -------------------
@@ -37,7 +37,7 @@ from PyQt4.QtCore import *
 from qgis.gui import QgsMessageBar
 
 
-from latlongriddialog import LatLonGridDialog
+from mgrsgriddialog import MgrsGridDialog
 
 
 def convertDMS(dms,hemis, type, digits):
@@ -63,8 +63,8 @@ def convertDMS(dms,hemis, type, digits):
 
 
 
-class LatLonGridLayer (core.QgsPluginLayer):
-    LAYER_TYPE = 'LatLonGrid'
+class MgrsGridLayer (core.QgsPluginLayer):
+    LAYER_TYPE = 'MgrsGrid'
 
     _featuremap = {
         0: core.QgsField('angle', QtCore.QVariant.Double, 'double', 8, 4),
@@ -75,7 +75,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
         }
 
     def __init__(self):
-        core.QgsPluginLayer.__init__(self, LatLonGridLayer.LAYER_TYPE,
+        core.QgsPluginLayer.__init__(self, MgrsGridLayer.LAYER_TYPE,
                                      'Lat/Lon grid overlay')
         self.setValid(True)
                
@@ -83,7 +83,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
         self.parent_layer_id   = ""
         
         #dialog
-        self.dlg = LatLonGridDialog(self)
+        self.dlg = MgrsGridDialog(self)
         
         # connect slot for parent removal
         QgsMapLayerRegistry.instance().layerRemoved.connect(self.RemovingParentSlot)
@@ -107,7 +107,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
         # label to draw
         #fields = QgsFields()
         #self.label = core.QgsLabel(fields)
-        #self.label = core.QgsLabel(LatLonGridLayer._featuremap)
+        #self.label = core.QgsLabel(MgrsGridLayer._featuremap)
         
         
         #eature.setAttribute(core.QgsLabel.Text, "sasasas")
@@ -168,8 +168,8 @@ class LatLonGridLayer (core.QgsPluginLayer):
             self.get_layer_id_by_name()
             #self.generateGrid()
             self.setValid(True)
-            self.setLatLonGridCrsAndExtent()
-            self.generateLatLonGrid()
+            self.setMgrsGridCrsAndExtent()
+            self.generateMgrsGrid()
             self.setCacheImage(None)
             self.emit(QtCore.SIGNAL('repaintRequested()'))
         else:
@@ -179,8 +179,8 @@ class LatLonGridLayer (core.QgsPluginLayer):
         
         
         if self.CheckLayerExtent() == False :
-            self.setLatLonGridCrsAndExtent()
-            self.generateLatLonGrid()
+            self.setMgrsGridCrsAndExtent()
+            self.generateMgrsGrid()
         
         mapToPixel = renderContext.mapToPixel()
 
@@ -228,10 +228,10 @@ class LatLonGridLayer (core.QgsPluginLayer):
     def writeXml(self, node, doc):
         element = node.toElement()
         element.setAttribute('type', 'plugin')
-        element.setAttribute('name', LatLonGridLayer.LAYER_TYPE);
+        element.setAttribute('name', MgrsGridLayer.LAYER_TYPE);
         
         # custom properties
-        gridElement = doc.createElement('latlongrid')
+        gridElement = doc.createElement('mgrsgrid')
                
         gridElement.setAttribute('parent_layer', str(self.parent_layer_id))
         
@@ -251,7 +251,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
         
         # write font
         
-        gridElement = doc.createElement('latlongrid_font')
+        gridElement = doc.createElement('mgrsgrid_font')
         gridElement.setAttribute('farmily',    str(self.dlg.label_attributes.family()))
         gridElement.setAttribute('bold',       str(self.dlg.label_attributes.bold()))
         gridElement.setAttribute('italic',     str(self.dlg.label_attributes.italic()))
@@ -266,7 +266,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
     
         # write extend
         
-        gridElement = doc.createElement('latlongrid_extend')
+        gridElement = doc.createElement('mgrsgrid_extend')
         gridElement.setAttribute('xmin',    str(core.QgsPluginLayer.extent(self).xMinimum()))
         gridElement.setAttribute('xmax',    str(core.QgsPluginLayer.extent(self).xMaximum()))
         gridElement.setAttribute('ymin',    str(core.QgsPluginLayer.extent(self).yMinimum()))
@@ -287,7 +287,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
         
         element = node.toElement()
         
-        gridElement = node.firstChildElement('latlongrid')
+        gridElement = node.firstChildElement('mgrsgrid')
         
         if gridElement is not None:
             
@@ -307,7 +307,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
           
          
          
-        gridElement = node.firstChildElement('latlongrid_font')
+        gridElement = node.firstChildElement('mgrsgrid_font')
         
         if gridElement is not None: 
             self.dlg.label_attributes.setFamily(str(gridElement.attribute('farmily')))
@@ -320,7 +320,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
            
         self.readSymbology(node)
                 
-        gridElement = node.firstChildElement('latlongrid_extend')
+        gridElement = node.firstChildElement('mgrsgrid_extend')
         
         if gridElement is not None:             
             rect = QgsRectangle();
@@ -329,7 +329,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
             rect.setYMinimum(float(gridElement.attribute('ymin')))
             rect.setYMaximum(float(gridElement.attribute('ymax')))
             self.setExtent(rect);
-            self.generateLatLonGrid()     
+            self.generateMgrsGrid()     
   
                 
                 
@@ -352,7 +352,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
     def get_layer_id_by_name(self) :
 
         for name, layer in QgsMapLayerRegistry.instance().mapLayers().iteritems():
-            if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == LatLonGridLayer.LAYER_TYPE :
+            if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == MgrsGridLayer.LAYER_TYPE :
                 continue
             if layer.name() == self.parent_layer_name :
                 self.parent_layer_id = layer.id()
@@ -362,7 +362,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
     def get_layer_name_by_id(self) :
 
         for name, layer in QgsMapLayerRegistry.instance().mapLayers().iteritems():
-            if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == LatLonGridLayer.LAYER_TYPE :
+            if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == MgrsGridLayer.LAYER_TYPE :
                 continue
             if layer.id() == self.parent_layer_id :
                 self.parent_layer_name = layer.name()
@@ -389,7 +389,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
     def get_parent_layer(self, parent_layer):
         
         for name, layer in QgsMapLayerRegistry.instance().mapLayers().iteritems():
-            if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == LatLonGridLayer.LAYER_TYPE :
+            if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == MgrsGridLayer.LAYER_TYPE :
                 continue
             if layer.id() == self.parent_layer_id :
                 parent_layer = layer
@@ -398,7 +398,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
         return False        
         
         
-    def setLatLonGridCrsAndExtent(self) :
+    def setMgrsGridCrsAndExtent(self) :
         
         layer = QgsMapLayerRegistry.instance().mapLayer(self.parent_layer_id)
         
@@ -442,7 +442,7 @@ class LatLonGridLayer (core.QgsPluginLayer):
         return False
     
     
-    def generateLatLonGrid(self) :
+    def generateMgrsGrid(self) :
         
         self.ll_grid = []
         

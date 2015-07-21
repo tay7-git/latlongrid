@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LatLonGrid
+ MgrsGrid
                                  A QGIS plugin
  Create Lat/lon grid based on layer extend
                              -------------------
@@ -23,7 +23,7 @@
 
 
 def name():
-    return "LatLonGrid"
+    return "MgrsGrid"
 
 
 def description():
@@ -48,6 +48,6 @@ def email():
     return "mikhail_tchernychev@yahoo.com"
 
 def classFactory(iface):
-    # load LatLonGrid class from file LatLonGrid
-    from latlongrid import LatLonGrid
-    return LatLonGrid(iface)
+    # load MgrsGrid class from file MgrsGrid
+    from mgrsgrid import MgrsGrid
+    return MgrsGrid(iface)

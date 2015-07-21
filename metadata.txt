@@ -9,12 +9,14 @@
 
 
 [general]
-name=LatLonGrid
+name=MgrsGrid
 qgisMinimumVersion=2.0
-description=Create Lat/lon grid based on layer extend
-version=0.5
-author=Mikhail Tchernychev
-email=mikhail_tchernychev@yahoo.com
+description=Create MGRS(Military grid reference system) grid based on layer extend
+version=0.5m
+orig_author=Mikhail Tchernychev (LatLonGrid)
+orig_email=mikhail_tchernychev@yahoo.com
+author=tay7
+email=tay7.git@gmail.com
 
 # end of mandatory metadata
 
@@ -35,4 +37,3 @@ experimental=True
 
 # deprecated flag (applies to the whole plugin, not just a single version
 deprecated=False
-

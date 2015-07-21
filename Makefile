@@ -1,5 +1,5 @@
 #/***************************************************************************
-# LatLonGrid
+# MgrsGrid
 # 
 # Create Lat/lon grid based on layer extend
 #                             -------------------
@@ -23,19 +23,19 @@ PLUGIN_UPLOAD = $(CURDIR)/plugin_upload.py
 # Makefile for a PyQGIS plugin 
 
 # translation
-SOURCES = latlongrid.py ui_latlongrid.py __init__.py latlongriddialog.py
-#TRANSLATIONS = i18n/latlongrid_en.ts
+SOURCES = mgrsgrid.py ui_mgrsgrid.py __init__.py mgrsgriddialog.py
+#TRANSLATIONS = i18n/mgrsgrid_en.ts
 TRANSLATIONS = 
 
 # global
 
-PLUGINNAME = latlongrid
+PLUGINNAME = mgrsgrid
 
-PY_FILES = latlongrid.py latlongriddialog.py __init__.py
+PY_FILES = mgrsgrid.py mgrsgriddialog.py __init__.py
 
 EXTRAS = icon.png metadata.txt
 
-UI_FILES = ui_latlongrid.py
+UI_FILES = ui_mgrsgrid.py
 
 RESOURCE_FILES = resources_rc.py
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LatLonGrid</class>
- <widget class="QDialog" name="LatLonGrid">
+ <class>MgrsGrid</class>
+ <widget class="QDialog" name="MgrsGrid">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -24,7 +24,7 @@
   </property>
   <property name="windowIcon">
    <iconset resource="resources.qrc">
-    <normaloff>:/plugins/latlongrid/icon.png</normaloff>:/plugins/latlongrid/icon.png</iconset>
+    <normaloff>:/plugins/mgrsgrid/icon.png</normaloff>:/plugins/mgrsgrid/icon.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -310,7 +310,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>LatLonGrid</receiver>
+   <receiver>MgrsGrid</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -326,7 +326,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>LatLonGrid</receiver>
+   <receiver>MgrsGrid</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -342,7 +342,7 @@
   <connection>
    <sender>font_button</sender>
    <signal>clicked()</signal>
-   <receiver>LatLonGrid</receiver>
+   <receiver>MgrsGrid</receiver>
    <slot>chooseFont()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -358,7 +358,7 @@
   <connection>
    <sender>color_button</sender>
    <signal>clicked()</signal>
-   <receiver>LatLonGrid</receiver>
+   <receiver>MgrsGrid</receiver>
    <slot>chooseColour()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -374,7 +374,7 @@
   <connection>
    <sender>grid_style_button</sender>
    <signal>clicked()</signal>
-   <receiver>LatLonGrid</receiver>
+   <receiver>MgrsGrid</receiver>
    <slot>chooseStyle()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -390,7 +390,7 @@
   <connection>
    <sender>selected_layer</sender>
    <signal>currentIndexChanged(QString)</signal>
-   <receiver>LatLonGrid</receiver>
+   <receiver>MgrsGrid</receiver>
    <slot>changeLayer()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -406,7 +406,7 @@
   <connection>
    <sender>labels_format</sender>
    <signal>currentIndexChanged(int)</signal>
-   <receiver>LatLonGrid</receiver>
+   <receiver>MgrsGrid</receiver>
    <slot>changeFormat()</slot>
    <hints>
     <hint type="sourcelabel">

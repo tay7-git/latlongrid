@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="/plugins/latlongrid" >
+    <qresource prefix="/plugins/mgrsgrid" >
         <file>icon.png</file>
         <file>help.png</file>
     </qresource>

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 /***************************************************************************
- LatLonGridDialog
+ MgrsGridDialog
                                  A QGIS plugin
  Create Lat/lon grid based on layer extend
                              -------------------
@@ -21,7 +21,7 @@
 """
 
 from PyQt4 import QtCore, QtGui, uic
-from ui_latlongrid import Ui_LatLonGrid
+from ui_mgrsgrid import Ui_MgrsGrid
 from qgis.core import *
 import qgis.utils
 from qgis import core, gui
@@ -31,20 +31,20 @@ from qgis import core, gui
 #from PyQt4.QtCore import *
 
 
-#( Ui_LatLonGrid, QDialog ) = uic.loadUiType( r'C:\Users\misha\.qgis2\python\plugins\LatLonGrid\ui_latlongrid.ui' )
+#( Ui_MgrsGrid, QDialog ) = uic.loadUiType( r'C:\Users\misha\.qgis2\python\plugins\MgrsGrid\ui_mgrsgrid.ui' )
 
 import os
-#( Ui_LatLonGrid, QDialog ) =  uic.loadUiType(os.path.join( os.path.dirname( __file__ ), 'ui_latlongrid.ui' ))
+#( Ui_MgrsGrid, QDialog ) =  uic.loadUiType(os.path.join( os.path.dirname( __file__ ), 'ui_mgrsgrid.ui' ))
 
 def load_combo_box_with_vector_layers(qgis, combo_box, set_selected, selectedText) :
 
-    from latlongridtype import LatLonGridLayer
+    from mgrsgridtype import MgrsGridLayer
 
     selection  = -1
 
     for name, layer in QgsMapLayerRegistry.instance().mapLayers().iteritems():
 
-        if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == LatLonGridLayer.LAYER_TYPE :
+        if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == MgrsGridLayer.LAYER_TYPE :
             continue
             
         
@@ -58,11 +58,11 @@ def load_combo_box_with_vector_layers(qgis, combo_box, set_selected, selectedTex
         combo_box.setCurrentIndex(selection)
             
 
-class LatLonGridDialog(QtGui.QDialog):
+class MgrsGridDialog(QtGui.QDialog):
     def __init__(self, gridlayer):
         QtGui.QDialog.__init__(self)
         # Set up the user interface from Designer.
-        self.ui = Ui_LatLonGrid()
+        self.ui = Ui_MgrsGrid()
         self.ui.setupUi(self)
 		
         self.gridlayer = gridlayer

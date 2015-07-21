@@ -1,6 +1,6 @@
 """
 ***************************************************************************
- LatLonGridType - registers itself to Quantum as a Plugin Layer
+ MgrsGridType - registers itself to Quantum as a Plugin Layer
                                  A QGIS plugin
  Overlays a user-definable grid on the map.
                              -------------------
@@ -20,15 +20,15 @@
 """
 
 from qgis import core
-from latlongridlayer  import LatLonGridLayer
+from mgrsgridlayer  import MgrsGridLayer
 
 
-class LatLonGridType(core.QgsPluginLayerType):
+class MgrsGridType(core.QgsPluginLayerType):
     def __init__(self):
-        core.QgsPluginLayerType.__init__(self, LatLonGridLayer.LAYER_TYPE)
+        core.QgsPluginLayerType.__init__(self, MgrsGridLayer.LAYER_TYPE)
     
     def createLayer(self):
-        return LatLonGridLayer()
+        return MgrsGridLayer()
 
     def showLayerProperties(self, layer):
         layer.showDialog()
