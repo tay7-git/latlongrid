@@ -4,8 +4,16 @@
                                  A QGIS plugin
  Overlays a user-definable grid on the map.
                              -------------------
-        begin                : 10/01/2013
-        copyright            : (C) 2013 Mikhail Tchernychev
+        forked               : 2015-07-21
+        copyright            : (C) 2013 by Mikhail Tchernychev
+                               (C) 2015 by tay7
+        email                : tay7.git@gmail.com
+
+This plugin is based from 'LatLon Grid'
+                             -------------------
+        original porject     : LatLon Grid
+        begin                : 2013-09-27
+        copyright            : (C) 2013 by Mikhail Tchernychev
         email                : mikhail_tchernychev@yahoo.com
  ***************************************************************************/
 
@@ -26,7 +34,7 @@ from mgrsgridlayer  import MgrsGridLayer
 class MgrsGridType(core.QgsPluginLayerType):
     def __init__(self):
         core.QgsPluginLayerType.__init__(self, MgrsGridLayer.LAYER_TYPE)
-    
+
     def createLayer(self):
         return MgrsGridLayer()
 
