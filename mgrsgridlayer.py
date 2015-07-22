@@ -607,8 +607,9 @@ class MgrsGridLayer (core.QgsPluginLayer):
                 fields = QgsFields()
                 feat =  QgsFeature(fields)
                 feat.initAttributes(QgsLabel.LabelFieldCount)
-
-                feat.setGeometry(QgsGeometry.fromPoint(QgsPoint(pos[0], pos[1])))
+                pt = QgsPoint(pos[0], pos[1])
+                geom = QgsGeometry.fromPoint(pt)
+                feat.setGeometry(geom)
 
                 if self.dlg.ui.label_orientation.currentIndex() == 0 :
                     feat.setAttribute(QgsLabel.Angle,90.)
@@ -618,7 +619,8 @@ class MgrsGridLayer (core.QgsPluginLayer):
                     feat.setAttribute(QgsLabel.Angle,0.)
                     feat.setAttribute(QgsLabel.Alignment, 'center|top')
 
-                feat.setAttribute(QgsLabel.Text, convertDMS(pos[0], "EW", self.dlg.ui.labels_format.currentIndex(), x_digits))
+#                feat.setAttribute(QgsLabel.Text, convertDMS(pos[0], "EW", self.dlg.ui.labels_format.currentIndex(), x_digits))
+                feat.setAttribute(QgsLabel.Text, self.mgrs.toEeasting(self.crs(), pt))
 
                 self.label_features.append(feat)
 
@@ -628,8 +630,10 @@ class MgrsGridLayer (core.QgsPluginLayer):
                 fields = QgsFields()
                 feat =  QgsFeature(fields)
                 feat.initAttributes(QgsLabel.LabelFieldCount)
+                pt = QgsPoint(pos[0], pos[1])
+                geom = QgsGeometry.fromPoint(pt)
+                feat.setGeometry(geom)
 
-                feat.setGeometry(QgsGeometry.fromPoint(QgsPoint(pos[0], pos[1])))
 
                 if self.dlg.ui.label_orientation.currentIndex() == 0 :
                     feat.setAttribute(QgsLabel.Angle,90.)
@@ -640,8 +644,8 @@ class MgrsGridLayer (core.QgsPluginLayer):
                     feat.setAttribute(QgsLabel.Alignment, 'center|bottom')
                     feat.setAttribute(QgsLabel.YOffset, 2)
 
-                feat.setAttribute(QgsLabel.Text, convertDMS(pos[0], "EW", self.dlg.ui.labels_format.currentIndex(), x_digits))
-
+#                feat.setAttribute(QgsLabel.Text, convertDMS(pos[0], "EW", self.dlg.ui.labels_format.currentIndex(), x_digits))
+                feat.setAttribute(QgsLabel.Text, self.mgrs.toEeasting(self.crs(), pt))
                 self.label_features.append(feat)
 
         if self.dlg.ui.label_west.isChecked() :
@@ -650,8 +654,9 @@ class MgrsGridLayer (core.QgsPluginLayer):
                 fields = QgsFields()
                 feat =  QgsFeature(fields)
                 feat.initAttributes(QgsLabel.LabelFieldCount)
-
-                feat.setGeometry(QgsGeometry.fromPoint(QgsPoint(pos[0], pos[1])))
+                pt = QgsPoint(pos[0], pos[1])
+                geom = QgsGeometry.fromPoint(pt)
+                feat.setGeometry(geom)
 
                 if self.dlg.ui.label_orientation.currentIndex() == 0 :
                     feat.setAttribute(QgsLabel.Angle,0.)
@@ -662,8 +667,8 @@ class MgrsGridLayer (core.QgsPluginLayer):
                     feat.setAttribute(QgsLabel.Alignment, 'center|bottom')
                     feat.setAttribute(QgsLabel.YOffset, 2)
 
-                feat.setAttribute(QgsLabel.Text, convertDMS(pos[1], "NS", self.dlg.ui.labels_format.currentIndex(), y_digits))
-
+#                feat.setAttribute(QgsLabel.Text, convertDMS(pos[1], "NS", self.dlg.ui.labels_format.currentIndex(), y_digits))
+                feat.setAttribute(QgsLabel.Text, self.mgrs.toEeasting(self.crs(), pt))
                 self.label_features.append(feat)
 
 
@@ -673,8 +678,9 @@ class MgrsGridLayer (core.QgsPluginLayer):
                 fields = QgsFields()
                 feat =  QgsFeature(fields)
                 feat.initAttributes(QgsLabel.LabelFieldCount)
-
-                feat.setGeometry(QgsGeometry.fromPoint(QgsPoint(pos[0], pos[1])))
+                pt = QgsPoint(pos[0], pos[1])
+                geom = QgsGeometry.fromPoint(pt)
+                feat.setGeometry(geom)
 
                 if self.dlg.ui.label_orientation.currentIndex() == 0 :
                     feat.setAttribute(QgsLabel.Angle,0.)
@@ -684,6 +690,6 @@ class MgrsGridLayer (core.QgsPluginLayer):
                     feat.setAttribute(QgsLabel.Angle,90.)
                     feat.setAttribute(QgsLabel.Alignment, 'center|top')
 
-                feat.setAttribute(QgsLabel.Text, convertDMS(pos[1], "NS", self.dlg.ui.labels_format.currentIndex(),y_digits))
-
+#                feat.setAttribute(QgsLabel.Text, convertDMS(pos[1], "NS", self.dlg.ui.labels_format.currentIndex(),y_digits))
+                feat.setAttribute(QgsLabel.Text, self.mgrs.toEeasting(self.crs(), pt))
                 self.label_features.append(feat)
