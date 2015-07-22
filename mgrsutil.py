@@ -21,34 +21,41 @@ Utility function for MGRS.
 """
 
 from qgis import core
-from mgrs import Mgrs
+import mgrs
 import re
 
 class MgrsTool():
-  ct = Mgrs()
-  epsg4326 = core.QgsCoordinateReferenceSystem("EPSG:4326")
-  re_mgrs = re.compile('([0-9]{1,2})([A-Z]+)([0-9]*)')
+    ct = mgrs.MGRS()
+    epsg4326 = core.QgsCoordinateReferenceSystem("EPSG:4326")
+    re_mgrs = re.compile('([0-9]{1,2})([A-Z]+)([0-9]*)')
 
-  def toMgrs(self, pt):
-#        canvas = iface.mapCanvas()
-        canvas = qgis.utils.iface.mapCanvas()
+    def toMGRS(self, crs, pt):
 
-#        canvasCrs = canvas.mapRenderer().destinationCrs()
-
-        try:
-             canvasCrs = canvas.mapSettings().destinationCrs()
-        except:
-             canvasCrs = canvas.mapRenderer().destinationCrs()
-
-        transform = QgsCoordinateTransform(canvasCrs, self.epsg4326)
-        pt4326 = transform.transform(pt.x(), pt.y())
+        transform = core.QgsCoordinateTransform(crs, self.epsg4326)
+        pt4326 = transform.transform(pt)
 
         try:
-            mgrsCoords = self.ct.toMgrs(pt4326.y(), pt4326.x())
+            mgrsCoords = self.ct.toMGRS(pt4326.y(), pt4326.x())
         except:
+#            mgrsCoords = "pt4326: x={0:.3f},y={1:.3f}".format(pt4326.x(), pt4326.y())
             mgrsCoords = None
 
         return mgrsCoords
+
+    def toEeasting(self, crs, pt):
+        m = self.toMGRS(crs, pt)
+        zone, letters, easting, northing, precision = self.parseMGRS(m)
+        return easting
+
+    def toNorthing(self, crs, pt):
+        m = self.toMGRS(crs, pt)
+        zone, letters, easting, northing, precision = self.parseMGRS(m)
+        return northing
+
+    def toPrecision(self, crs, pt):
+        m = self.toMGRS(crs, pt)
+        zone, letters, easting, northing, precision = self.parseMGRS(m)
+        return precision
 
 # Mgrs 54SVG999574 / zone:'54', letters:'SVG', easting: '999', northing: '574'
 # The function Break_Mgrs_String breaks down an Mgrs
@@ -60,17 +67,17 @@ class MgrsTool():
 #   Northing       : Northing value                  (output)
 #   Precision      : Precision level of Mgrs string  (output)
 
-  def parseMgrs(self, mgrs):
-        m = re_mgrs.match(mgrs)
-        zone = m.group(0)
-        letters = m.group(1)
-        nums = m.group(2)
+    def parseMGRS(self, mgrs):
+        m = self.re_mgrs.match(mgrs)
+        zone = m.group(1)
+        letters = m.group(2)
+        nums = m.group(3)
         precision = len(nums) / 2
         if precision>0:
-            Easting = nums[0:precision]
-            Northing = nums[precision+1,precision*2]
+            easting = nums[0:precision]
+            northing = nums[precision+1:precision*2]
         else:
-            Easting = ''
-            Northing = ''
+            easting = ''
+            northing = ''
 
-        return ( zone, letters, easting, nothing, precision )
+        return zone, letters, easting, northing, precision
