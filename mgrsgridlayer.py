@@ -175,8 +175,11 @@ class MgrsGridLayer (core.QgsPluginLayer):
             self.setValid(True)
             self.setMgrsGridCrsAndExtent()
             self.generateMgrsGrid()
-            self.setCacheImage(None)
-            self.emit(QtCore.SIGNAL('repaintRequested()'))
+            if QGis.QGIS_VERSION_INT < 20400:
+                self.setCacheImage(None)
+                self.emit(SIGNAL("repaintRequested()"))
+            else:
+                self.triggerRepaint()
         else:
             self.setValid(False)
 
@@ -347,8 +350,11 @@ class MgrsGridLayer (core.QgsPluginLayer):
 
         if symbolElement is not None and symbolElement.attribute('name') == 'grid_lines':
             self.dlg.symbol = core.QgsSymbolLayerV2Utils.loadSymbol(symbolElement)
-            self.setCacheImage(None)
-            self.emit(QtCore.SIGNAL('repaintRequested()'))
+            if QGis.QGIS_VERSION_INT < 20400:
+                self.setCacheImage(None)
+                self.emit(SIGNAL("repaintRequested()"))
+            else:
+                self.triggerRepaint()
             return True
         else:
             return False
