@@ -46,7 +46,7 @@ from qgis.gui import QgsMessageBar
 
 
 from mgrsgriddialog import MgrsGridDialog
-
+from mgrsutil import *
 
 def convertDMS(dms,hemis, type, digits):
 
