@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>372</width>
-    <height>307</height>
+    <width>452</width>
+    <height>319</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_layer">
      <item>
       <widget class="QLabel" name="label">
        <property name="text">
@@ -52,102 +52,33 @@
     </layout>
    </item>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <layout class="QHBoxLayout" name="horizontalLayout_precision">
      <item>
-      <widget class="QLabel" name="label_2">
+      <widget class="QLabel" name="precision_label">
        <property name="text">
-        <string>Grid labels format:</string>
+        <string>MGRS precision:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="labels_format">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-         <horstretch>1</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
+      <widget class="QDoubleSpinBox" name="precision">
        <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select label format. Grid interval specified below is based on this selection&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;MGRS Precision&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
-       <property name="currentIndex">
+       <property name="decimals">
         <number>0</number>
        </property>
-       <item>
-        <property name="text">
-         <string>Decimal degrees</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Decimal degress and minutes</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Decimal degress, minutes and seconds</string>
-        </property>
-       </item>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_3">
-     <item>
-      <widget class="QLabel" name="long_spacing_label">
-       <property name="text">
-        <string>Longitude spacing, deg:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="long_spacing">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Longitude grid step in dec. degrees, minutes or second based on format&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="decimals">
-        <number>7</number>
+       <property name="maximum">
+        <double>6.000000000000000</double>
        </property>
        <property name="singleStep">
-        <double>0.010000000000000</double>
-       </property>
-       <property name="value">
         <double>1.000000000000000</double>
        </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <item>
-      <widget class="QLabel" name="lat_spacing_label">
-       <property name="text">
-        <string>Latitude spacing, deg:</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QDoubleSpinBox" name="lat_spacing">
-       <property name="toolTip">
-        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Latitude grid step in dec. degrees, minutes or second based on format&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-       </property>
-       <property name="decimals">
-        <number>7</number>
-       </property>
-       <property name="singleStep">
-        <double>0.010000000000000</double>
-       </property>
        <property name="value">
-        <double>1.000000000000000</double>
+        <double>3.000000000000000</double>
        </property>
       </widget>
      </item>
@@ -400,22 +331,6 @@
     <hint type="destinationlabel">
      <x>87</x>
      <y>5</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>labels_format</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>MgrsGrid</receiver>
-   <slot>changeFormat()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>205</x>
-     <y>51</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>61</x>
-     <y>65</y>
     </hint>
    </hints>
   </connection>
