@@ -30,20 +30,16 @@ This plugin is based from 'LatLon Grid'
 
 import math
 
+from qgis import core, gui
 from qgis.core import *
+from qgis.core import QGis
+from qgis.gui import QgsMessageBar
 import qgis.utils
 
-from PyQt4.QtGui import QProgressBar
 from PyQt4 import QtCore, QtGui, QtXml
-from qgis.core import QGis
-#from util import *
-
-from PyQt4.QtGui import *
-from qgis import core, gui
 from PyQt4.QtCore import *
-
-from qgis.gui import QgsMessageBar
-
+from PyQt4.QtGui import *
+from PyQt4.QtGui import QProgressBar
 
 from mgrsgriddialog import MgrsGridDialog
 from mgrsutil import *
