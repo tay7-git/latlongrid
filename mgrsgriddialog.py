@@ -79,6 +79,7 @@ class MgrsGridDialog(QtGui.QDialog):
 
         self.symbol = core.QgsLineSymbolV2.createSimple({'width':'0', 'color':'0,255,0'})
 
+        self.mgrs = MgrsTool()
 
     def chooseFont(self):
 
@@ -144,18 +145,56 @@ class MgrsGridDialog(QtGui.QDialog):
         dlg.exec_()
 
     def changeLayer(self, layer_name):
-		pass
+        layer = self.get_layer_by_name(layer_name)
+        if layer is None:
+            return
 
-    def changeFormat(self, iformat):
+        precision = int(self.ui.precision.value())
 
-        if iformat == 0:
-           self.ui.long_spacing_label.setText("Longitude spacing, deg:")
-           self.ui.lat_spacing_label.setText("Latitude spacing, deg:")
+        extent = layer.extent()
+        ptMin = QgsPoint(extent.xMinimum(),
+                        extent.yMinimum())
+        ptMax = QgsPoint(extent.xMaximum(),
+                        extent.yMaximum())
 
-        if iformat == 1 :
-            self.ui.long_spacing_label.setText("Longitude spacing, min:")
-            self.ui.lat_spacing_label.setText("Latitude spacing, min:")
+        if self.mgrs.toMGRS(layer.crs(), ptMin, True, 5) is None:
+            return
 
-        if iformat == 2 :
-            self.ui.long_spacing_label.setText("Longitude spacing, sec:")
-            self.ui.lat_spacing_label.setText("Latitude spacing, sec:")
+        if self.mgrs.toMGRS(layer.crs(), ptMax, True, 5) is None:
+            return
+
+        if self.mgrs.toZone(layer.crs(), ptMin) <> self.mgrs.toZone(layer.crs(), ptMin):
+            self.precision.setMinimum(0.0)
+        else:
+            minPrecision = max(
+                self.precision(self.mgrs.toNorthing(layer.crs(), ptMin, True, 5),
+                            self.mgrs.toNorthing(layer.crs(), ptMax, True, 5)),
+                self.precision(self.mgrs.toEeasting(layer.crs(), ptMin, True, 5),
+                            self.mgrs.toEeasting(layer.crs(), ptMax, True, 5)))
+            if minPrecision is None:
+                return
+
+            if self.ui.precision.minimum() < minPrecision:
+                if self.ui.precision.value() < minPrecision:
+                    self.ui.setPrecision(float(minPrecision))
+                self.ui.precision.setMinimum(float(minPrecision))
+
+    def precision(self, min, max):
+    # max, min : string(5) of MGRS( easting or northing ).
+        if (min is None) or (max is None):
+            return None
+
+        for p in range(0,4) :
+            if min[p] <> max[p] :
+                return p + 1
+        return 5
+
+    def get_layer_by_name(self, layer_name):
+
+        for name, layer in QgsMapLayerRegistry.instance().mapLayers().iteritems():
+            if layer.type() == QgsMapLayer.PluginLayer and layer.pluginLayerType() == MgrsGridLayer.LAYER_TYPE :
+                continue
+            if layer.name() == layer_name :
+                return layer
+
+        return None
