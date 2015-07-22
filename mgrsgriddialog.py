@@ -33,6 +33,7 @@ from ui_mgrsgrid import Ui_MgrsGrid
 from qgis.core import *
 import qgis.utils
 from qgis import core, gui
+from mgrsutil import *
 
 
 # create the dialog for zoom to point
