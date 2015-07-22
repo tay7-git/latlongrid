@@ -23,7 +23,7 @@ PLUGIN_UPLOAD = $(CURDIR)/plugin_upload.py
 # Makefile for a PyQGIS plugin
 
 # translation
-SOURCES = mgrsgrid.py ui_mgrsgrid.py __init__.py mgrsgriddialog.py mgrsgridlayer.py mgrsgridtype.py
+SOURCES = mgrsgrid.py ui_mgrsgrid.py __init__.py mgrsgriddialog.py mgrsgridlayer.py mgrsgridtype.py mgrsutil.py
 #TRANSLATIONS = i18n/mgrsgrid_en.ts
 TRANSLATIONS =
 
@@ -31,7 +31,7 @@ TRANSLATIONS =
 
 PLUGINNAME = mgrsgrid
 
-PY_FILES = mgrsgrid.py mgrsgriddialog.py mgrsgridlayer.py mgrsgridtype.py __init__.py
+PY_FILES = mgrsgrid.py mgrsgriddialog.py mgrsgridlayer.py mgrsgridtype.py mgrsutil.py __init__.py
 
 EXTRAS = icon.png metadata.txt
 
