@@ -129,6 +129,7 @@ class MgrsGridLayer (core.QgsPluginLayer):
         #self.feat.setAttribute(0,'Test Text')
         #self.feat.setAttribute('8', -8.66774)
         #self.feat.setAttribute('9', 37.08391)
+        self.mgrs = MgrsTool()
 
     def showDialog(self):
 
